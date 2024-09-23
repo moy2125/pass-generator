@@ -1,0 +1,11 @@
+node_modules/
+public/
+.env.local
+.vscode/
+
+# recommendations vscode
+!.vscode/extensions.json
+
+### macOS template
+# General
+*.DS_Store

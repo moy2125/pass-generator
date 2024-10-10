@@ -1,5 +1,3 @@
-import clipboardy from "clipboardy";
-
 function generarPasswordEquilibrada(longitud) {
   if (longitud % 3 !== 0) {
     throw new Error(
@@ -27,16 +25,20 @@ function generarPasswordEquilibrada(longitud) {
 
   password = password.sort(() => Math.random() - 0.5);
 
-  const passwordFinal = password.join("");
-
-  // Copiar al portapapeles usando clipboardy
-  clipboardy.writeSync(passwordFinal);
-  console.log("Contraseña copiada al portapapeles: " + passwordFinal);
-
-  return passwordFinal;
+  return password.join("");
 }
 
-// Ejemplo de uso:
-const longitudDeseada = 12;
-const nuevaPassword = generarPasswordEquilibrada(longitudDeseada);
-console.log(`Tu nueva contraseña equilibrada es: ${nuevaPassword}`);
+// Esta función se llamará cuando el botón sea clickeado
+function generarPassword() {
+  const longitud = parseInt(document.getElementById("longitud").value);
+  try {
+    const nuevaPassword = generarPasswordEquilibrada(longitud);
+    document.getElementById(
+      "resultado"
+    ).textContent = `Tu nueva contraseña es: ${nuevaPassword}`;
+  } catch (error) {
+    document.getElementById(
+      "resultado"
+    ).textContent = `Error: ${error.message}`;
+  }
+}

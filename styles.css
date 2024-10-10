@@ -1,0 +1,43 @@
+body {
+    background-color: grey;
+    font-style: italic;
+}
+
+h1 {
+    background-color: black;
+    color: white;
+}
+
+p, #longitud {
+    font-size: 32px;
+}
+
+#longitud {
+    background-color: #4CAF50;
+    padding: 15px 32px;
+    border-radius: 8px;
+}
+
+.longitud {
+    font-size: 32px;
+}
+
+#boton {
+    background-color: #4CAF50; /* Color de fondo */
+    color: rgb(0, 0, 0);              /* Color del texto */
+    padding: 15px 32px;        /* Espaciado interior (padding) */
+    font-size: 32px;           /* Tamaño de la fuente */
+    border: none;              /* Sin borde */
+    border-radius: 8px;        /* Bordes redondeados */
+    cursor: pointer;           /* Cambia el cursor cuando se pasa sobre el botón */
+    transition: background-color 0.3s; /* Transición suave al pasar el cursor */
+}
+
+#boton:hover {
+    background-color: #00ff0d; /* Cambia de color al pasar el cursor */
+}
+
+#boton:active {
+    background-color: #172618; /* Cambia de color al hacer clic */
+    transform: translateY(2px); /* Efecto de presión al hacer clic */
+}

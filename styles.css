@@ -23,7 +23,7 @@ p, #lenght {
     font-size: 32px;
 }
 
-#button {
+#button, #copy {
     background-color: #4CAF50;
     color: rgb(0, 0, 0);
     padding: 15px 32px;
@@ -34,11 +34,11 @@ p, #lenght {
     transition: background-color 0.3s;
 }
 
-#button:hover {
+#button:hover,  #copy:hover {
     background-color: #00ff0d;
 }
 
-#button:active {
+#button:active,  #copy:active {
     background-color: #172618;
     transform: translateY(2px);
 }

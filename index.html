@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pass Generator</title>
-    <script src="index.js" defer></script> <!-- Asegura que el script se cargue después del DOM -->
+    <script src="index.js" defer></script> <!-- Ensures the script runs after the page has loaded -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Generador de Contraseñas</h1>
-    <label class="longitud" for="longitud">Longitud de la contraseña:</label>
-    <input type="number" id="longitud" value="12" min="6" />
-    <button id="boton" onclick="generarPassword()">Generar Contraseña</button>
-
-    <p id="resultado"></p> <!-- Para mostrar la contraseña generada -->
+    <h1>Password Generator</h1>
+    <label class="lenght" for="lenght">Password lenght:</label>
+    <input type="number" id="lenght" value="" min="1" />
+    <button id="button" onclick="generatePassword()">Generate Password</button>
+    <button id="copy" onclick="copyPassword()">Copy Password</button>
+    
+    <p id="result"></p> <!-- To show the generated password -->
 </body>
 </html>

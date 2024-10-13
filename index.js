@@ -1,26 +1,26 @@
-function generarPasswordEquilibrada(longitud) {
-  if (longitud % 3 !== 0) {
+function generateEquilibratedPassword(lenght) {
+  if (lenght % 3 !== 0) {
     throw new Error(
-      "La longitud debe ser divisible por 3 para tener partes iguales de caracteres alfabéticos, numéricos y especiales."
+      "The lenght should be divisible by 3 to have  equal parts of alphabetic, numeric and special characters."
     );
   }
 
-  const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  const numeros = "0123456789";
-  const especiales = "!@#$%^&*()";
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const specials = "!@#$%^&*()";
 
-  const partesIguales = longitud / 3;
+  const equalParts = lenght / 3;
   let password = [];
 
-  function obtenerCaracterAleatorio(cadena) {
-    const randomIndex = Math.floor(Math.random() * cadena.length);
-    return cadena[randomIndex];
+  function obtainRandomCharacter(chain) {
+    const randomIndex = Math.floor(Math.random() * chain.length);
+    return chain[randomIndex];
   }
 
-  for (let i = 0; i < partesIguales; i++) {
-    password.push(obtenerCaracterAleatorio(letras));
-    password.push(obtenerCaracterAleatorio(numeros));
-    password.push(obtenerCaracterAleatorio(especiales));
+  for (let i = 0; i < equalParts; i++) {
+    password.push(obtainRandomCharacter(letters));
+    password.push(obtainRandomCharacter(numbers));
+    password.push(obtainRandomCharacter(specials));
   }
 
   password = password.sort(() => Math.random() - 0.5);
@@ -28,17 +28,30 @@ function generarPasswordEquilibrada(longitud) {
   return password.join("");
 }
 
-// Esta función se llamará cuando el botón sea clickeado
-function generarPassword() {
-  const longitud = parseInt(document.getElementById("longitud").value);
+// This  function will be called when the button is clicked
+
+let newPasswordGlobal = "";
+
+function generatePassword() {
+  const lenght = parseInt(document.getElementById("lenght").value);
   try {
-    const nuevaPassword = generarPasswordEquilibrada(longitud);
+    let newPassword = generateEquilibratedPassword(lenght);
     document.getElementById(
-      "resultado"
-    ).textContent = `Tu nueva contraseña es: ${nuevaPassword}`;
+      "result"
+    ).textContent = `Your new password is: ${newPassword}`;
+    newPasswordGlobal = newPassword;
   } catch (error) {
-    document.getElementById(
-      "resultado"
-    ).textContent = `Error: ${error.message}`;
+    document.getElementById("result").textContent = `Error: ${error.message}`;
   }
+}
+
+function copyPassword() {
+  navigator.clipboard
+    .writeText(newPasswordGlobal)
+    .then(() => {
+      console.log("Password successfuly copied!");
+    })
+    .catch((err) => {
+      console.error("Error al copiar texto: ", err);
+    });
 }

@@ -49,6 +49,11 @@ function copyPassword() {
   navigator.clipboard
     .writeText(newPasswordGlobal)
     .then(() => {
+      document.getElementById("copy").textContent = "Password copied!";
+      setTimeout(() => {
+        document.getElementById("copy").textContent = "Copy Password";
+      }, 2000);
+
       console.log("Password successfuly copied!");
     })
     .catch((err) => {

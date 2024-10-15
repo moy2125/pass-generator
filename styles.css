@@ -1,7 +1,7 @@
 body {
     background-color: grey;
-    /* font-style: italic; */
     font-family: 'Courier New', Courier, monospace;
+    padding: 100px;
 }
 
 h1 {
@@ -9,13 +9,14 @@ h1 {
     color: white;
 }
 
-p, #lenght {
+p, #length, #special, #number {
     font-size: 32px;
     font-family: 'Courier New', Courier, monospace;
 }
 
-#lenght {
-    border: none;
+#length, #special, #number {
+    border-style: solid;
+    border-color: black;
     background-color: #4CAF50;
     padding: 12px 12px;
     border-radius: 8px;
@@ -24,16 +25,16 @@ p, #lenght {
 
 }
 
-.lenght {
+.length {
     font-size: 32px;
 }
 
 #button, #copy {
     background-color: #4CAF50;
+    border-style: solid;
     color: rgb(0, 0, 0);
     padding: 6px 6px;
     font-size: 32px;
-    border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -47,4 +48,20 @@ p, #lenght {
 #button:active,  #copy:active {
     background-color: #172618;
     transform: translateY(2px);
+}
+
+.generate-button {
+    padding: 20px;
+}
+
+.copy-button {
+    padding: 20px;
+}
+
+.password-length {
+    padding-bottom: 20px;
+}
+
+.special-length{
+    padding: 20px;
 }

@@ -9,10 +9,27 @@
 </head>
 <body>
     <h1>Password Generator</h1>
-    <label class="lenght" for="lenght">Password lenght:</label>
-    <input type="number" id="lenght" value="3" min="3" max="30" />
-    <button id="button" onclick="generatePassword()">Generate Password</button>
-    <button id="copy" onclick="copyPassword()">Copy Password</button>
+    <div class="password-length">
+        <label class="length" for="length">Password length:</label>
+        <input type="number" id="length" value="6" min="3" max="30" />
+    </div>
+    <div class="number-length"></div>
+        <label class="length" for="special">Numbers:</label>
+        <input type="number" id="number" value="0" min="0" max="30" />
+    </div>
+    <div class="special-length">
+        <label class="length" for="special">Special chars:</label>
+        <input type="number" id="special" value="0" min="0" max="30" />
+    </div>
+    <div class="buttons">
+        <div class="generate-button">
+            <button id="button" onclick="generatePassword()">Generate Password</button>
+        </div>
+        <div class="copy-button">
+            <button id="copy" onclick="copyPassword()">Copy Password</button>
+        </div>
+    </div>
+    
     
     <p id="result"></p> <!-- To show the generated password -->
 </body>

@@ -4,6 +4,9 @@ function generateEquilibratedPassword(lenght) {
       "The lenght should be divisible by 3 to have  equal parts of alphabetic, numeric and special characters."
     );
   }
+  if (lenght > 30) {
+    throw new Error("The lenght should be less or equal to 30");
+  }
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   const numbers = "0123456789";

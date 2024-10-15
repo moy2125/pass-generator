@@ -1,6 +1,7 @@
 body {
     background-color: grey;
-    font-style: italic;
+    /* font-style: italic; */
+    font-family: 'Courier New', Courier, monospace;
 }
 
 h1 {
@@ -10,13 +11,17 @@ h1 {
 
 p, #lenght {
     font-size: 32px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #lenght {
     border: none;
     background-color: #4CAF50;
-    padding: 15px 32px;
+    padding: 12px 12px;
     border-radius: 8px;
+    width: 60px;
+    height: 25px;
+
 }
 
 .lenght {
@@ -26,12 +31,13 @@ p, #lenght {
 #button, #copy {
     background-color: #4CAF50;
     color: rgb(0, 0, 0);
-    padding: 15px 32px;
+    padding: 6px 6px;
     font-size: 32px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #button:hover,  #copy:hover {

@@ -1,36 +1,30 @@
 function generateEquilibratedPassword(length) {
-  if (length % 3 !== 0) {
-    throw new Error(
-      "The length should be divisible by 3 to have  equal parts of alphabetic, numeric and special characters."
-    );
-  }
-  if (length > 30) {
-    throw new Error("The length should be less or equal to 30");
+  if (length > 30 || length <= 0) {
+    throw new Error("The length should be more than 0 and less or equal to 30");
   }
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   const numbers = "0123456789";
   const specials = "!@#$%^&*()";
 
-  // const equalParts = length / 3;
   const numbersQty = parseInt(document.getElementById("number").value);
   const specialsQty = parseInt(document.getElementById("special").value);
   const lengthQty =
     parseInt(document.getElementById("length").value) -
     numbersQty -
     specialsQty;
+
+  // if (numbersQty + specialsQty > lengthQty) {
+  //   throw new Error(
+  //     `The sum of  numbers and specials should be less or equal to ${lengthQty}`
+  //   );
+  // }
   let password = [];
 
   function obtainRandomCharacter(chain) {
     const randomIndex = Math.floor(Math.random() * chain.length);
     return chain[randomIndex];
   }
-
-  // for (let i = 0; i < equalParts; i++) {
-  //   password.push(obtainRandomCharacter(letters));
-  //   password.push(obtainRandomCharacter(numbers));
-  //   password.push(obtainRandomCharacter(specials));
-  // }
 
   for (let i = 0; i < lengthQty; i++) {
     password.push(obtainRandomCharacter(letters));
@@ -47,8 +41,7 @@ function generateEquilibratedPassword(length) {
   return password.join("");
 }
 
-// This  function will be called when the button is clicked
-
+// This  function will be called when the "Generate Password" button is clicked
 let newPasswordGlobal = "";
 
 function generatePassword() {
@@ -63,6 +56,8 @@ function generatePassword() {
     document.getElementById("result").textContent = `Error: ${error.message}`;
   }
 }
+
+// This  function will be called when the "Copy Password" button is clicked
 
 function copyPassword() {
   navigator.clipboard

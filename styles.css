@@ -59,7 +59,11 @@ p, #length, #special, #number {
 }
 
 .password-length {
-    padding-bottom: 20px;
+    padding: 20px;
+}
+
+.number-length {
+    padding: 20px;
 }
 
 .special-length{

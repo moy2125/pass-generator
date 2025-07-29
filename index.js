@@ -52,6 +52,15 @@ function generatePassword() {
       "result"
     ).textContent = `Your new password is: ${newPassword}`;
     newPasswordGlobal = newPassword;
+
+    // Animación con anime.js
+    anime({
+      targets: "#result",
+      translateY: [-20, 0],
+      opacity: [0, 1],
+      duration: 2000,
+      easing: "easeOutElastic(1, .8)",
+    });
   } catch (error) {
     document.getElementById("result").textContent = `Error: ${error.message}`;
   }

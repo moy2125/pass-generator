@@ -1,7 +1,23 @@
+.layout {
+  width: 100%;
+
+  display: grid;
+  grid:
+    "header" auto
+    "main" 1fr
+    "footer" auto
+    / 1fr;
+  gap: 8px;
+}
+
+.header { grid-area: header; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+
 body {
     background-color: grey;
     font-family: 'Courier New', Courier, monospace;
-    padding: 100px;
+    padding: 4rem;
 }
 
 h1 {
@@ -10,7 +26,7 @@ h1 {
 }
 
 p, #length, #special, #number {
-    font-size: 32px;
+    font-size: 2rem;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -26,7 +42,7 @@ p, #length, #special, #number {
 }
 
 .length {
-    font-size: 32px;
+    font-size: 2rem;
 }
 
 #button, #copy {
@@ -34,8 +50,8 @@ p, #length, #special, #number {
     border-style: solid;
     color: rgb(0, 0, 0);
     padding: 6px 6px;
-    font-size: 32px;
-    border-radius: 8px;
+    font-size: 2rem;
+    border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s;
     font-family: 'Courier New', Courier, monospace;
@@ -58,14 +74,55 @@ p, #length, #special, #number {
     padding: 20px;
 }
 
-.password-length {
-    padding: 20px;
+.password-length,
+.number-length,
+.special-length {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0;
+    margin-bottom: 0.5rem;
 }
 
-.number-length {
-    padding: 20px;
+.length {
+    min-width: 120px;
+    text-align: right;
+    margin-right: 0.5rem;
 }
 
-.special-length{
-    padding: 20px;
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+
+.footer {
+    background: #222;
+    color: #eee;
+    text-align: center;
+    padding: 1rem 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+#length:focus, #special:focus, #number:focus, #button:focus, #copy:focus {
+    outline: 2px solid #00ff0d;
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+    .main {
+        padding: 1rem;
+    }
+    h1, .length, p, #length, #special, #number, #button, #copy {
+        font-size: 1.2rem;
+    }
 }

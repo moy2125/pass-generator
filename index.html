@@ -4,33 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pass Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="index.js" defer></script> <!-- Ensures the script runs after the page has loaded -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Password Generator</h1>
-    <div class="password-length">
-        <label class="length" for="length">Password length:</label>
-        <input type="number" id="length" value="6" min="3" max="30" />
-    </div>
-    <div class="number-length">
-        <label class="length" for="special">Numbers:</label>
-        <input type="number" id="number" value="0" min="0" max="30" />
-    </div>
-    <div class="special-length">
-        <label class="length" for="special">Special chars:</label>
-        <input type="number" id="special" value="0" min="0" max="30" />
-    </div>
-    <div class="buttons">
-        <div class="generate-button">
-            <button id="button" onclick="generatePassword()">Generate Password</button>
+    <section class="layout">
+        <div class="header">
+            <h1>Password Generator</h1>
+            <p>Generate a secure password with custom length and character options.</p>
+            <p>Use the options below to customize your password.</p>
+            <p>Click "Generate Password" to create a new password.</p>
+            <p>Click "Copy Password" to copy the generated password to your clipboard.</p>
+            <p>Enjoy your secure password!</p>
         </div>
-        <div class="copy-button">
-            <button id="copy" onclick="copyPassword()">Copy Password</button>
+        <div class="main">
+            <div class="password-length">
+                <label class="length" for="length">Password length:</label>
+                <input type="number" id="length" value="6" min="3" max="30" autocomplete="off" />
+            </div>
+            <div class="number-length">
+                <label class="length" for="number">Numbers:</label>
+                <input type="number" id="number" value="0" min="0" max="30" autocomplete="off" />
+            </div>
+            <div class="special-length">
+                <label class="length" for="special">Special chars:</label>
+                <input type="number" id="special" value="0" min="0" max="30" autocomplete="off" />
+            </div>
+            <div class="buttons" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div class="generate-button" style="padding: 0;">
+                    <button id="button" type="button" onclick="generatePassword()" title="Generate a new password">Generate Password</button>
+                </div>
+                <div class="copy-button" style="padding: 0;">
+                    <button id="copy" type="button" onclick="copyPassword()" title="Copy password to clipboard">Copy Password</button>
+                </div>
+            </div>
+            <p id="result"></p> <!-- To show the generated password -->
         </div>
-    </div>
-    
-    
-    <p id="result"></p> <!-- To show the generated password -->
+        <div class="footer">
+            <small>
+                &copy; 2025 moy2125. Passwords are generated locally and not stored.<br>
+                <a href="https://github.com/moy2125" target="_blank" rel="noopener">GitHub</a>
+            </small>
+        </div>
+    </section>
 </body>
 </html>

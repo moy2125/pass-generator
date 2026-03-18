@@ -1,4 +1,8 @@
 node_modules/
+test-results/
+playwright-report/
+.playwright-mcp/
+.claude/
 public/
 .env.local
 .vscode/

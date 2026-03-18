@@ -22,7 +22,7 @@ function generateEquilibratedPassword(length) {
   let password = [];
 
   function obtainRandomCharacter(chain) {
-    const randomIndex = Math.floor(Math.random() * chain.length);
+    const randomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % chain.length;
     return chain[randomIndex];
   }
 
@@ -36,7 +36,10 @@ function generateEquilibratedPassword(length) {
     password.push(obtainRandomCharacter(specials));
   }
 
-  password = password.sort(() => Math.random() - 0.5);
+  for (let i = password.length - 1; i > 0; i--) {
+    const j = crypto.getRandomValues(new Uint32Array(1))[0] % (i + 1);
+    [password[i], password[j]] = [password[j], password[i]];
+  }
 
   return password.join("");
 }

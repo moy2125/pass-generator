@@ -14,15 +14,15 @@ function generateEquilibratedPassword(length) {
     numbersQty -
     specialsQty;
 
-  // if (numbersQty + specialsQty > lengthQty) {
-  //   throw new Error(
-  //     `The sum of  numbers and specials should be less or equal to ${lengthQty}`
-  //   );
-  // }
+  if (numbersQty + specialsQty > parseInt(document.getElementById("length").value)) {
+    throw new Error(
+      `Numbers (${numbersQty}) + specials (${specialsQty}) exceed total length (${parseInt(document.getElementById("length").value)})`
+    );
+  }
   let password = [];
 
   function obtainRandomCharacter(chain) {
-    const randomIndex = Math.floor(Math.random() * chain.length);
+    const randomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % chain.length;
     return chain[randomIndex];
   }
 
@@ -36,7 +36,10 @@ function generateEquilibratedPassword(length) {
     password.push(obtainRandomCharacter(specials));
   }
 
-  password = password.sort(() => Math.random() - 0.5);
+  for (let i = password.length - 1; i > 0; i--) {
+    const j = crypto.getRandomValues(new Uint32Array(1))[0] % (i + 1);
+    [password[i], password[j]] = [password[j], password[i]];
+  }
 
   return password.join("");
 }
@@ -69,6 +72,14 @@ function generatePassword() {
 // This  function will be called when the "Copy Password" button is clicked
 
 function copyPassword() {
+  if (!newPasswordGlobal) {
+    document.getElementById("copy").textContent = "Generate one first!";
+    setTimeout(() => {
+      document.getElementById("copy").textContent = "Copy Password";
+    }, 1500);
+    return;
+  }
+
   navigator.clipboard
     .writeText(newPasswordGlobal)
     .then(() => {
@@ -76,8 +87,6 @@ function copyPassword() {
       setTimeout(() => {
         document.getElementById("copy").textContent = "Copy Password";
       }, 1000);
-
-      console.log("Password successfuly copied!");
     })
     .catch((err) => {
       console.error("Error al copiar texto: ", err);

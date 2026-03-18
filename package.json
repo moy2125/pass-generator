@@ -6,7 +6,5 @@
   "scripts": {
     "start": "node index.js"
   },
-  "dependencies": {
-    "clipboardy": "^4.0.0"
-  }
+  "dependencies": {}
 }

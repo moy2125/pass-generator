@@ -72,6 +72,14 @@ function generatePassword() {
 // This  function will be called when the "Copy Password" button is clicked
 
 function copyPassword() {
+  if (!newPasswordGlobal) {
+    document.getElementById("copy").textContent = "Generate one first!";
+    setTimeout(() => {
+      document.getElementById("copy").textContent = "Copy Password";
+    }, 1500);
+    return;
+  }
+
   navigator.clipboard
     .writeText(newPasswordGlobal)
     .then(() => {
@@ -79,8 +87,6 @@ function copyPassword() {
       setTimeout(() => {
         document.getElementById("copy").textContent = "Copy Password";
       }, 1000);
-
-      console.log("Password successfuly copied!");
     })
     .catch((err) => {
       console.error("Error al copiar texto: ", err);

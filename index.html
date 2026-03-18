@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none';">
     <title>Pass Generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -44,7 +45,7 @@
 
         <div class="footer">
             <small>
-                &copy; 2025 <a href="https://github.com/moy2125" target="_blank" rel="noopener">moy2125</a>
+                &copy; 2025 <a href="https://github.com/moy2125" target="_blank" rel="noopener noreferrer">moy2125</a>
             </small>
         </div>
     </section>

@@ -110,6 +110,14 @@ h1 {
     border-color: var(--accent);
 }
 
+/* ── Validation message ────────────────────────── */
+#validation-msg {
+    font-size: 0.8rem;
+    color: var(--error);
+    min-height: 1rem;
+    margin-top: 0.25rem;
+}
+
 /* ── Buttons ───────────────────────────────────── */
 .buttons {
     display: flex;
@@ -155,6 +163,13 @@ h1 {
 
 #copy:active {
     transform: translateY(1px);
+}
+
+#button:disabled {
+    background: var(--border);
+    color: var(--muted);
+    cursor: not-allowed;
+    transform: none;
 }
 
 #button:focus, #copy:focus {

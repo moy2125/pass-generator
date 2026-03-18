@@ -14,11 +14,6 @@ function generateEquilibratedPassword(length) {
     numbersQty -
     specialsQty;
 
-  if (numbersQty + specialsQty > parseInt(document.getElementById("length").value)) {
-    throw new Error(
-      `Numbers (${numbersQty}) + specials (${specialsQty}) exceed total length (${parseInt(document.getElementById("length").value)})`
-    );
-  }
   let password = [];
 
   function obtainRandomCharacter(chain) {
@@ -42,6 +37,22 @@ function generateEquilibratedPassword(length) {
   }
 
   return password.join("");
+}
+
+function validateInputs() {
+  const length = parseInt(document.getElementById("length").value) || 0;
+  const numbers = parseInt(document.getElementById("number").value) || 0;
+  const specials = parseInt(document.getElementById("special").value) || 0;
+  const msg = document.getElementById("validation-msg");
+  const btn = document.getElementById("button");
+
+  if (numbers + specials > length) {
+    msg.textContent = `Numbers (${numbers}) + specials (${specials}) can't exceed length (${length})`;
+    btn.disabled = true;
+  } else {
+    msg.textContent = "";
+    btn.disabled = false;
+  }
 }
 
 // This  function will be called when the "Generate Password" button is clicked

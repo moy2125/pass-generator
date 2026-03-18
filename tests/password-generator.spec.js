@@ -73,14 +73,22 @@ test('generates different passwords on successive clicks', async ({ page }) => {
 
 // ── Validation ────────────────────────────────────────────────────────────────
 
-test('shows error when numbers + specials exceed total length', async ({ page }) => {
+test('shows inline error and disables Generate when numbers + specials exceed length', async ({ page }) => {
   await page.fill('#length', '6');
   await page.fill('#number', '4');
   await page.fill('#special', '4');
-  await page.click('#button');
-  const text = await page.locator('#result').textContent();
-  expect(text).toContain('Error');
-  await expect(page.locator('#result-box')).not.toHaveClass(/has-password/);
+  await expect(page.locator('#validation-msg')).toContainText("can't exceed length");
+  await expect(page.locator('#button')).toBeDisabled();
+});
+
+test('clears error and re-enables Generate when values become valid', async ({ page }) => {
+  await page.fill('#length', '6');
+  await page.fill('#number', '4');
+  await page.fill('#special', '4');
+  await expect(page.locator('#button')).toBeDisabled();
+  await page.fill('#special', '2');
+  await expect(page.locator('#validation-msg')).toHaveText('');
+  await expect(page.locator('#button')).toBeEnabled();
 });
 
 // ── Copy ──────────────────────────────────────────────────────────────────────

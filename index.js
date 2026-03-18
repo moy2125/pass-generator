@@ -14,11 +14,11 @@ function generateEquilibratedPassword(length) {
     numbersQty -
     specialsQty;
 
-  // if (numbersQty + specialsQty > lengthQty) {
-  //   throw new Error(
-  //     `The sum of  numbers and specials should be less or equal to ${lengthQty}`
-  //   );
-  // }
+  if (numbersQty + specialsQty > parseInt(document.getElementById("length").value)) {
+    throw new Error(
+      `Numbers (${numbersQty}) + specials (${specialsQty}) exceed total length (${parseInt(document.getElementById("length").value)})`
+    );
+  }
   let password = [];
 
   function obtainRandomCharacter(chain) {

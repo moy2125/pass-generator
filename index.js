@@ -51,9 +51,8 @@ function generatePassword() {
   const length = parseInt(document.getElementById("length").value);
   try {
     let newPassword = generateEquilibratedPassword(length);
-    document.getElementById(
-      "result"
-    ).textContent = `Your new password is: ${newPassword}`;
+    document.getElementById("result").textContent = newPassword;
+    document.getElementById("result-box").classList.add("has-password");
     newPasswordGlobal = newPassword;
 
     // Animación con anime.js
@@ -66,6 +65,7 @@ function generatePassword() {
     });
   } catch (error) {
     document.getElementById("result").textContent = `Error: ${error.message}`;
+    document.getElementById("result-box").classList.remove("has-password");
   }
 }
 
@@ -75,7 +75,7 @@ function copyPassword() {
   if (!newPasswordGlobal) {
     document.getElementById("copy").textContent = "Generate one first!";
     setTimeout(() => {
-      document.getElementById("copy").textContent = "Copy Password";
+      document.getElementById("copy").textContent = "Copy";
     }, 1500);
     return;
   }
@@ -83,9 +83,9 @@ function copyPassword() {
   navigator.clipboard
     .writeText(newPasswordGlobal)
     .then(() => {
-      document.getElementById("copy").textContent = "Password copied!";
+      document.getElementById("copy").textContent = "Copied!";
       setTimeout(() => {
-        document.getElementById("copy").textContent = "Copy Password";
+        document.getElementById("copy").textContent = "Copy";
       }, 1000);
     })
     .catch((err) => {

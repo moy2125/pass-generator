@@ -103,3 +103,5 @@ function copyPassword() {
       console.error("Error al copiar texto: ", err);
     });
 }
+
+document.getElementById("year").textContent = new Date().getFullYear();

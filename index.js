@@ -44,7 +44,7 @@ function validateInputs() {
   const numbers = parseInt(document.getElementById("number").value) || 0;
   const specials = parseInt(document.getElementById("special").value) || 0;
   const msg = document.getElementById("validation-msg");
-  const btn = document.getElementById("button");
+  const btn = document.getElementById("btn-generate");
 
   if (numbers + specials > length) {
     msg.textContent = `Numbers (${numbers}) + specials (${specials}) can't exceed length (${length})`;
@@ -59,7 +59,7 @@ function validateInputs() {
 let newPasswordGlobal = "";
 
 function generatePassword() {
-  const btn = document.getElementById("button");
+  const btn = document.getElementById("btn-generate");
   
   if (btn.disabled) return;
   
@@ -95,9 +95,9 @@ function generatePassword() {
 
 function copyPassword() {
   if (!newPasswordGlobal) {
-    document.getElementById("copy").textContent = "Generate one first!";
+    document.getElementById("btn-copy").textContent = "Generate one first!";
     setTimeout(() => {
-      document.getElementById("copy").textContent = "Copy";
+      document.getElementById("btn-copy").textContent = "Copy";
     }, 1500);
     return;
   }
@@ -105,9 +105,9 @@ function copyPassword() {
   navigator.clipboard
     .writeText(newPasswordGlobal)
     .then(() => {
-      document.getElementById("copy").textContent = "Copied!";
+      document.getElementById("btn-copy").textContent = "Copied!";
       setTimeout(() => {
-        document.getElementById("copy").textContent = "Copy";
+        document.getElementById("btn-copy").textContent = "Copy";
       }, 1000);
     })
     .catch((err) => {
@@ -120,5 +120,5 @@ document.getElementById("year").textContent = new Date().getFullYear();
 document.getElementById("length").addEventListener("input", validateInputs);
 document.getElementById("number").addEventListener("input", validateInputs);
 document.getElementById("special").addEventListener("input", validateInputs);
-document.getElementById("button").addEventListener("click", generatePassword);
-document.getElementById("copy").addEventListener("click", copyPassword);
+document.getElementById("btn-generate").addEventListener("click", generatePassword);
+document.getElementById("btn-copy").addEventListener("click", copyPassword);

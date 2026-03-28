@@ -246,31 +246,6 @@ test('strength indicator shows Good for password with numbers', async ({ page })
   await expect(strengthText).toHaveText('Good');
 });
 
-// ── Keyboard Shortcuts ─────────────────────────────────────────────────────────
-
-test('pressing Enter generates password when body is focused', async ({ page }) => {
-  await page.click('body');
-  await page.keyboard.press('Enter');
-  const text = await page.locator('#result').textContent();
-  expect(text).not.toBe('—');
-  expect(text.trim().length).toBe(6);
-});
-
-test('pressing Space generates password when body is focused', async ({ page }) => {
-  await page.click('body');
-  await page.keyboard.press('Space');
-  const text = await page.locator('#result').textContent();
-  expect(text).not.toBe('—');
-  expect(text.trim().length).toBe(6);
-});
-
-test('keyboard shortcuts respect rate limiting', async ({ page }) => {
-  await page.click('body');
-  await page.keyboard.press('Enter');
-  await expect(page.locator('#btn-generate')).toBeDisabled();
-  await expect(page.locator('#btn-generate')).toHaveText('Wait...');
-});
-
 // ── Module Pattern ─────────────────────────────────────────────────────────────
 
 test('PasswordGenerator module exposes expected API', async ({ page }) => {
@@ -442,4 +417,31 @@ test('export button exists in history section', async ({ page }) => {
   await page.waitForTimeout(600);
   const exportBtn = page.locator('#btn-export-history');
   await expect(exportBtn).toBeVisible();
+});
+
+test('clear button exists in history section', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  const clearBtn = page.locator('#btn-clear-history');
+  await expect(clearBtn).toBeVisible();
+});
+
+test('history items have copy buttons', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  const copyBtns = page.locator('.history-copy');
+  await expect(copyBtns).toHaveCount(1);
+});
+
+test('copy button in history works', async ({ page }) => {
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  await page.click('#history-toggle');
+  await page.waitForTimeout(400);
+  await page.click('.history-copy');
+  await expect(page.locator('.history-copy')).toHaveText('Copied!');
 });

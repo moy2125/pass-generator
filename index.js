@@ -105,3 +105,9 @@ function copyPassword() {
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("length").addEventListener("input", validateInputs);
+document.getElementById("number").addEventListener("input", validateInputs);
+document.getElementById("special").addEventListener("input", validateInputs);
+document.getElementById("button").addEventListener("click", generatePassword);
+document.getElementById("copy").addEventListener("click", copyPassword);

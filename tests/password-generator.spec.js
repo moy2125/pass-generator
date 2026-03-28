@@ -402,3 +402,34 @@ test('history toggle expands and collapses list', async ({ page }) => {
   await page.click('#history-toggle');
   await expect(list).not.toHaveClass(/collapsed/);
 });
+
+// ── Toggle Visibility ────────────────────────────────────────────────────────────
+
+test('toggle visibility button is hidden before generating', async ({ page }) => {
+  const btn = page.locator('#btn-toggle-visibility');
+  await expect(btn).toHaveClass(/hidden/);
+});
+
+test('toggle visibility button appears after generating', async ({ page }) => {
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  const btn = page.locator('#btn-toggle-visibility');
+  await expect(btn).not.toHaveClass(/hidden/);
+});
+
+test('clicking toggle visibility blurs the password', async ({ page }) => {
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  await page.click('#btn-toggle-visibility');
+  const btn = page.locator('#btn-toggle-visibility');
+  await expect(btn).toHaveClass(/masked/);
+});
+
+test('clicking toggle visibility again reveals the password', async ({ page }) => {
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  await page.click('#btn-toggle-visibility');
+  await page.click('#btn-toggle-visibility');
+  const btn = page.locator('#btn-toggle-visibility');
+  await expect(btn).not.toHaveClass(/masked/);
+});

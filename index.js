@@ -204,6 +204,7 @@ const PasswordGenerator = (() => {
       currentPassword = generateEquilibratedPassword(length);
       document.getElementById("result").textContent = currentPassword;
       document.getElementById("result-box").classList.add("has-password");
+      document.getElementById("btn-toggle-visibility").classList.remove("hidden");
 
       updateStrength(currentPassword);
       saveHistory(currentPassword);
@@ -291,6 +292,15 @@ const PasswordGenerator = (() => {
 
     document.getElementById("history-toggle").addEventListener("click", toggleHistory);
     document.getElementById("btn-clear-history").addEventListener("click", clearHistory);
+
+    function toggleVisibility() {
+      const btn = document.getElementById("btn-toggle-visibility");
+      const result = document.getElementById("result-box");
+      btn.classList.toggle("masked");
+      btn.querySelector("span").textContent = btn.classList.contains("masked") ? "👁‍🗨" : "👁";
+    }
+
+    document.getElementById("btn-toggle-visibility").addEventListener("click", toggleVisibility);
 
     renderHistory();
   }

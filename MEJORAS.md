@@ -75,7 +75,7 @@
 - **Estado**: ✅ Completado
 
 ### 15. No hay mostrar/ocultar password toggle
-- **Estado**: Pendiente
+- **Estado**: ✅ Completado
 
 ### 16. No hay opción de exportar passwords generados
 - **Estado**: Pendiente

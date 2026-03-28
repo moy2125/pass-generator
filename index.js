@@ -294,10 +294,8 @@ const PasswordGenerator = (() => {
     document.getElementById("btn-clear-history").addEventListener("click", clearHistory);
 
     function toggleVisibility() {
-      const btn = document.getElementById("btn-toggle-visibility");
-      const result = document.getElementById("result-box");
-      btn.classList.toggle("masked");
-      btn.querySelector("span").textContent = btn.classList.contains("masked") ? "👁‍🗨" : "👁";
+      const result = document.getElementById("result");
+      result.classList.toggle("masked");
     }
 
     document.getElementById("btn-toggle-visibility").addEventListener("click", toggleVisibility);

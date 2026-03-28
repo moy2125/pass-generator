@@ -421,8 +421,8 @@ test('clicking toggle visibility blurs the password', async ({ page }) => {
   await page.click('#btn-generate');
   await page.waitForTimeout(600);
   await page.click('#btn-toggle-visibility');
-  const btn = page.locator('#btn-toggle-visibility');
-  await expect(btn).toHaveClass(/masked/);
+  const result = page.locator('#result');
+  await expect(result).toHaveClass(/masked/);
 });
 
 test('clicking toggle visibility again reveals the password', async ({ page }) => {
@@ -430,6 +430,6 @@ test('clicking toggle visibility again reveals the password', async ({ page }) =
   await page.waitForTimeout(600);
   await page.click('#btn-toggle-visibility');
   await page.click('#btn-toggle-visibility');
-  const btn = page.locator('#btn-toggle-visibility');
-  await expect(btn).not.toHaveClass(/masked/);
+  const result = page.locator('#result');
+  await expect(result).not.toHaveClass(/masked/);
 });

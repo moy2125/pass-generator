@@ -270,3 +270,50 @@ test('keyboard shortcuts respect rate limiting', async ({ page }) => {
   await expect(page.locator('#btn-generate')).toBeDisabled();
   await expect(page.locator('#btn-generate')).toHaveText('Wait...');
 });
+
+// ── Module Pattern ─────────────────────────────────────────────────────────────
+
+test('PasswordGenerator module exposes expected API', async ({ page }) => {
+  await page.goto(PAGE_URL);
+  const hasInit = await page.evaluate(() => typeof PasswordGenerator.init === 'function');
+  const hasGenerate = await page.evaluate(() => typeof PasswordGenerator.generatePassword === 'function');
+  const hasCopy = await page.evaluate(() => typeof PasswordGenerator.copyPassword === 'function');
+  const hasGeneratePassword = await page.evaluate(() => typeof PasswordGenerator.generateEquilibratedPassword === 'function');
+  expect(hasInit).toBe(true);
+  expect(hasGenerate).toBe(true);
+  expect(hasCopy).toBe(true);
+  expect(hasGeneratePassword).toBe(true);
+});
+
+test('PasswordGenerator exposes CONFIG object', async ({ page }) => {
+  await page.goto(PAGE_URL);
+  const hasConfig = await page.evaluate(() => typeof PasswordGenerator.CONFIG === 'object');
+  expect(hasConfig).toBe(true);
+});
+
+test('CONFIG has expected structure', async ({ page }) => {
+  await page.goto(PAGE_URL);
+  const config = await page.evaluate(() => PasswordGenerator.CONFIG);
+  expect(config).toHaveProperty('chars');
+  expect(config).toHaveProperty('defaults');
+  expect(config).toHaveProperty('animation');
+  expect(config).toHaveProperty('rateLimit');
+});
+
+test('CONFIG.chars contains all character types', async ({ page }) => {
+  await page.goto(PAGE_URL);
+  const chars = await page.evaluate(() => PasswordGenerator.CONFIG.chars);
+  expect(chars).toHaveProperty('lowercase');
+  expect(chars).toHaveProperty('uppercase');
+  expect(chars).toHaveProperty('numbers');
+  expect(chars).toHaveProperty('specials');
+});
+
+test('generateEquilibratedPassword function works via API', async ({ page }) => {
+  await page.goto(PAGE_URL);
+  await page.fill('#length', '10');
+  await page.fill('#number', '0');
+  await page.fill('#special', '0');
+  const password = await page.evaluate(() => PasswordGenerator.generateEquilibratedPassword(10));
+  expect(password.length).toBe(10);
+});

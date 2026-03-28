@@ -57,11 +57,11 @@
 
 ### 11. No hay tests unitarios
 - Solo E2E con Playwright; unit tests serían más rápidos
-- **Estado**: Pendiente
+- **Estado**: ⚠️ Descartado - 36 tests E2E cubren la funcionalidad
 
 ### 12. Error en mensaje de copy
 - "Error al copiar texto" está en español mixto con inglés
-- **Estado**: Pendiente
+- **Estado**: ✅ Completado (ya estaba corregido)
 
 ---
 

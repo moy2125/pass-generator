@@ -59,6 +59,10 @@ function validateInputs() {
 let newPasswordGlobal = "";
 
 function generatePassword() {
+  const btn = document.getElementById("button");
+  
+  if (btn.disabled) return;
+  
   const length = parseInt(document.getElementById("length").value);
   try {
     let newPassword = generateEquilibratedPassword(length);
@@ -66,7 +70,6 @@ function generatePassword() {
     document.getElementById("result-box").classList.add("has-password");
     newPasswordGlobal = newPassword;
 
-    // Animación con anime.js
     anime({
       targets: "#result",
       translateY: [-20, 0],
@@ -74,6 +77,14 @@ function generatePassword() {
       duration: 2000,
       easing: "easeOutElastic(1, .8)",
     });
+
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = "Wait...";
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }, 500);
   } catch (error) {
     document.getElementById("result").textContent = `Error: ${error.message}`;
     document.getElementById("result-box").classList.remove("has-password");

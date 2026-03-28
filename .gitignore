@@ -7,6 +7,10 @@ public/
 .env.local
 .vscode/
 
+# Local development files
+MEJORAS.md
+AGENTS.md
+
 # recommendations vscode
 !.vscode/extensions.json
 

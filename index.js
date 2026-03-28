@@ -117,7 +117,22 @@ function copyPassword() {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-document.getElementById("length").addEventListener("input", validateInputs);
+const lengthInput = document.getElementById("length");
+const lengthSlider = document.getElementById("length-slider");
+
+lengthSlider.addEventListener("input", () => {
+  lengthInput.value = lengthSlider.value;
+  validateInputs();
+});
+
+lengthInput.addEventListener("input", () => {
+  let val = parseInt(lengthInput.value);
+  if (val < 3) val = 3;
+  if (val > 30) val = 30;
+  lengthSlider.value = val;
+  validateInputs();
+});
+
 document.getElementById("number").addEventListener("input", validateInputs);
 document.getElementById("special").addEventListener("input", validateInputs);
 document.getElementById("btn-generate").addEventListener("click", generatePassword);

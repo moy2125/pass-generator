@@ -177,6 +177,30 @@ h1 {
     outline-offset: 2px;
 }
 
+button.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    font-family: var(--font);
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.8rem;
+    height: 32px;
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+button.secondary:hover {
+    background: rgba(74, 222, 128, 0.1);
+}
+
+button.secondary:active {
+    transform: translateY(1px);
+}
+
 /* ── Result box ────────────────────────────────── */
 #result-box {
     background: var(--bg);
@@ -431,12 +455,14 @@ input[type="range"]:focus::-webkit-slider-thumb {
     list-style: none;
     margin: 0;
     padding: 0;
-    max-height: 200px;
-    overflow-y: auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
 }
 
-#history-list.collapsed {
-    display: none;
+#history-list.expanded {
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 #history-list li {
@@ -471,10 +497,11 @@ input[type="range"]:focus::-webkit-slider-thumb {
     text-decoration: underline;
 }
 
-#btn-clear-history {
+.history-actions {
+    display: flex;
+    gap: 0.5rem;
     margin-top: 0.5rem;
-    font-size: 0.75rem;
-    padding: 0.3rem 0.6rem;
+    align-items: center;
 }
 
 /* ── Responsive ────────────────────────────────── */

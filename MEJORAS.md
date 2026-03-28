@@ -78,4 +78,4 @@
 - **Estado**: ✅ Completado
 
 ### 16. No hay opción de exportar passwords generados
-- **Estado**: Pendiente
+- **Estado**: ✅ Completado

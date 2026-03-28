@@ -398,9 +398,9 @@ test('history toggle expands and collapses list', async ({ page }) => {
   await page.waitForTimeout(600);
   await page.click('#history-toggle');
   const list = page.locator('#history-list');
-  await expect(list).toHaveClass(/collapsed/);
+  await expect(list).toHaveClass(/expanded/);
   await page.click('#history-toggle');
-  await expect(list).not.toHaveClass(/collapsed/);
+  await expect(list).not.toHaveClass(/expanded/);
 });
 
 // ── Toggle Visibility ────────────────────────────────────────────────────────────
@@ -432,4 +432,14 @@ test('clicking toggle visibility again reveals the password', async ({ page }) =
   await page.click('#btn-toggle-visibility');
   const result = page.locator('#result');
   await expect(result).not.toHaveClass(/masked/);
+});
+
+// ── Export ──────────────────────────────────────────────────────────────────────
+
+test('export button exists in history section', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  const exportBtn = page.locator('#btn-export-history');
+  await expect(exportBtn).toBeVisible();
 });

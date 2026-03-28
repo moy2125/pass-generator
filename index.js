@@ -74,6 +74,8 @@ const PasswordGenerator = (() => {
         setTimeout(() => { btn.textContent = "Copy"; }, 1000);
       });
     });
+
+    list.scrollTop = list.scrollHeight;
   }
 
   function clearHistory() {
@@ -81,10 +83,24 @@ const PasswordGenerator = (() => {
     renderHistory();
   }
 
+  function exportHistory() {
+    const history = getHistory();
+    if (history.length === 0) return;
+
+    const content = history.join("\n");
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `passwords-${new Date().toISOString().split("T")[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   function toggleHistory() {
     const list = document.getElementById("history-list");
     const arrow = document.getElementById("history-arrow");
-    list.classList.toggle("collapsed");
+    list.classList.toggle("expanded");
     arrow.classList.toggle("collapsed");
   }
 
@@ -292,6 +308,7 @@ const PasswordGenerator = (() => {
 
     document.getElementById("history-toggle").addEventListener("click", toggleHistory);
     document.getElementById("btn-clear-history").addEventListener("click", clearHistory);
+    document.getElementById("btn-export-history").addEventListener("click", exportHistory);
 
     function toggleVisibility() {
       const result = document.getElementById("result");

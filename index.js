@@ -22,6 +22,71 @@ const PasswordGenerator = (() => {
   };
 
   let currentPassword = "";
+  const MAX_HISTORY = 10;
+
+  function getHistory() {
+    try {
+      return JSON.parse(localStorage.getItem("passwordHistory")) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveHistory(password) {
+    const saveEnabled = document.getElementById("save-history").checked;
+    if (!saveEnabled) return;
+
+    const history = getHistory();
+    if (history[0] === password) return;
+
+    history.unshift(password);
+    if (history.length > MAX_HISTORY) {
+      history.pop();
+    }
+    localStorage.setItem("passwordHistory", JSON.stringify(history));
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const history = getHistory();
+    const section = document.getElementById("history-section");
+    const list = document.getElementById("history-list");
+    const count = document.getElementById("history-count");
+
+    if (history.length === 0) {
+      section.classList.add("hidden");
+      return;
+    }
+
+    section.classList.remove("hidden");
+    count.textContent = `(${history.length})`;
+    list.innerHTML = history.map((pwd, i) => `
+      <li>
+        <span class="history-password">${pwd}</span>
+        <button class="history-copy" data-password="${pwd}">Copy</button>
+      </li>
+    `).join("");
+
+    list.querySelectorAll(".history-copy").forEach(btn => {
+      btn.addEventListener("click", () => {
+        navigator.clipboard.writeText(btn.dataset.password);
+        btn.textContent = "Copied!";
+        setTimeout(() => { btn.textContent = "Copy"; }, 1000);
+      });
+    });
+  }
+
+  function clearHistory() {
+    localStorage.removeItem("passwordHistory");
+    renderHistory();
+  }
+
+  function toggleHistory() {
+    const list = document.getElementById("history-list");
+    const arrow = document.getElementById("history-arrow");
+    list.classList.toggle("collapsed");
+    arrow.classList.toggle("collapsed");
+  }
 
   function generateEquilibratedPassword(length) {
     if (length > CONFIG.defaults.lengthMax || length <= 0) {
@@ -141,6 +206,7 @@ const PasswordGenerator = (() => {
       document.getElementById("result-box").classList.add("has-password");
 
       updateStrength(currentPassword);
+      saveHistory(currentPassword);
 
       anime({
         targets: "#result",
@@ -222,6 +288,11 @@ const PasswordGenerator = (() => {
         }
       }
     });
+
+    document.getElementById("history-toggle").addEventListener("click", toggleHistory);
+    document.getElementById("btn-clear-history").addEventListener("click", clearHistory);
+
+    renderHistory();
   }
 
   return { init, generatePassword, copyPassword, generateEquilibratedPassword, CONFIG };

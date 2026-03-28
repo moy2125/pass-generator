@@ -42,6 +42,12 @@
                         <option value="lower">Lower (aa)</option>
                     </select>
                 </div>
+                <div class="control-row checkbox-row">
+                    <label for="save-history" class="checkbox-label">
+                        <input type="checkbox" id="save-history" />
+                        <span>Save history</span>
+                    </label>
+                </div>
                 <p id="validation-msg"></p>
             </div>
 
@@ -58,6 +64,16 @@
                     <div id="strength-fill"></div>
                 </div>
                 <span id="strength-text"></span>
+            </div>
+
+            <div id="history-section" class="history-section hidden">
+                <div class="history-header" id="history-toggle">
+                    <span>Recent passwords</span>
+                    <span id="history-count"></span>
+                    <span id="history-arrow">▼</span>
+                </div>
+                <ul id="history-list"></ul>
+                <button id="btn-clear-history" class="secondary small" type="button">Clear</button>
             </div>
         </div>
 

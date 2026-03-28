@@ -349,3 +349,56 @@ test('generates mixed case password when Both is selected', async ({ page }) => 
   const hasLower = /[a-z]/.test(text);
   expect(hasUpper || hasLower).toBe(true);
 });
+
+// ── History ────────────────────────────────────────────────────────────────────
+
+test('history section is hidden by default', async ({ page }) => {
+  const section = page.locator('#history-section');
+  await expect(section).toHaveClass(/hidden/);
+});
+
+test('history section appears when enabled and password generated', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  const section = page.locator('#history-section');
+  await expect(section).not.toHaveClass(/hidden/);
+});
+
+test('history contains generated password', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  const list = page.locator('#history-list');
+  await expect(list.locator('li')).toHaveCount(1);
+});
+
+test('history shows count', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  const count = page.locator('#history-count');
+  await expect(count).toHaveText('(2)');
+});
+
+test('history can be cleared', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  await page.click('#btn-clear-history');
+  const section = page.locator('#history-section');
+  await expect(section).toHaveClass(/hidden/);
+});
+
+test('history toggle expands and collapses list', async ({ page }) => {
+  await page.check('#save-history');
+  await page.click('#btn-generate');
+  await page.waitForTimeout(600);
+  await page.click('#history-toggle');
+  const list = page.locator('#history-list');
+  await expect(list).toHaveClass(/collapsed/);
+  await page.click('#history-toggle');
+  await expect(list).not.toHaveClass(/collapsed/);
+});

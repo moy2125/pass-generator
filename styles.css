@@ -350,6 +350,95 @@ input[type="range"]:focus::-webkit-slider-thumb {
     accent-color: var(--accent);
 }
 
+/* ── History ───────────────────────────────────── */
+.history-section {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+
+.history-section.hidden {
+    display: none;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+
+.history-header:hover {
+    color: var(--text);
+}
+
+#history-count {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+#history-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+
+#history-arrow.collapsed {
+    transform: rotate(-90deg);
+}
+
+#history-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#history-list.collapsed {
+    display: none;
+}
+
+#history-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+#history-list li:last-child {
+    border-bottom: none;
+}
+
+.history-password {
+    flex: 1;
+    word-break: break-all;
+}
+
+.history-copy {
+    background: none;
+    border: none;
+    color: var(--accent);
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.history-copy:hover {
+    text-decoration: underline;
+}
+
+#btn-clear-history {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+}
+
 /* ── Responsive ────────────────────────────────── */
 @media (max-width: 480px) {
     body { padding: 1rem; }

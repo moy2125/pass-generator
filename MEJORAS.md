@@ -72,7 +72,7 @@
 
 ### 14. No hay historial reciente
 - (opt-in, localStorage)
-- **Estado**: Pendiente
+- **Estado**: ✅ Completado
 
 ### 15. No hay mostrar/ocultar password toggle
 - **Estado**: Pendiente

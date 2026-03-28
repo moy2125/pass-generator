@@ -245,3 +245,28 @@ test('strength indicator shows Good for password with numbers', async ({ page })
   const strengthText = page.locator('#strength-text');
   await expect(strengthText).toHaveText('Good');
 });
+
+// ── Keyboard Shortcuts ─────────────────────────────────────────────────────────
+
+test('pressing Enter generates password when body is focused', async ({ page }) => {
+  await page.click('body');
+  await page.keyboard.press('Enter');
+  const text = await page.locator('#result').textContent();
+  expect(text).not.toBe('—');
+  expect(text.trim().length).toBe(6);
+});
+
+test('pressing Space generates password when body is focused', async ({ page }) => {
+  await page.click('body');
+  await page.keyboard.press('Space');
+  const text = await page.locator('#result').textContent();
+  expect(text).not.toBe('—');
+  expect(text.trim().length).toBe(6);
+});
+
+test('keyboard shortcuts respect rate limiting', async ({ page }) => {
+  await page.click('body');
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#btn-generate')).toBeDisabled();
+  await expect(page.locator('#btn-generate')).toHaveText('Wait...');
+});

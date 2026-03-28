@@ -186,3 +186,14 @@ document.getElementById("number").addEventListener("input", validateInputs);
 document.getElementById("special").addEventListener("input", validateInputs);
 document.getElementById("btn-generate").addEventListener("click", generatePassword);
 document.getElementById("btn-copy").addEventListener("click", copyPassword);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    if (document.activeElement === document.body || 
+        document.activeElement === document.getElementById("result-box") ||
+        document.activeElement === document.getElementById("result")) {
+      e.preventDefault();
+      generatePassword();
+    }
+  }
+});

@@ -118,3 +118,76 @@ test('clipboard contains the generated password after copy', async ({ page }) =>
   const clipboard = await page.evaluate(() => navigator.clipboard.readText());
   expect(clipboard).toBe(password.trim());
 });
+
+// ── Rate Limiting ────────────────────────────────────────────────────────────
+
+test('button shows Wait... text during cooldown', async ({ page }) => {
+  await page.click('#btn-generate');
+  await expect(page.locator('#btn-generate')).toHaveText('Wait...');
+});
+
+test('button is disabled during cooldown', async ({ page }) => {
+  await page.click('#btn-generate');
+  await expect(page.locator('#btn-generate')).toBeDisabled();
+});
+
+test('button re-enables after cooldown period', async ({ page }) => {
+  await page.click('#btn-generate');
+  await expect(page.locator('#btn-generate')).toBeEnabled({ timeout: 1000 });
+});
+
+// ── Slider ──────────────────────────────────────────────────────────────────
+
+test('slider exists and has correct min/max attributes', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  await expect(slider).toBeVisible();
+  await expect(slider).toHaveAttribute('min', '3');
+  await expect(slider).toHaveAttribute('max', '30');
+});
+
+test('moving slider updates the number input', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  const input = page.locator('#length');
+  await slider.fill('15');
+  await expect(input).toHaveValue('15');
+});
+
+test('editing number input updates the slider', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  const input = page.locator('#length');
+  await input.fill('20');
+  await expect(slider).toHaveValue('20');
+});
+
+test('generating password with slider uses correct length', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  await slider.fill('18');
+  await page.click('#btn-generate');
+  const text = await page.locator('#result').textContent();
+  expect(text.trim().length).toBe(18);
+});
+
+test('slider clamps value to min when below range', async ({ page }) => {
+  const input = page.locator('#length');
+  await input.fill('1');
+  await expect(page.locator('#length-slider')).toHaveValue('3');
+});
+
+test('slider clamps value to max when above range', async ({ page }) => {
+  const input = page.locator('#length');
+  await input.fill('50');
+  await expect(page.locator('#length-slider')).toHaveValue('30');
+});
+
+// ── Security (event listeners) ────────────────────────────────────────────────
+
+test('validation triggers on slider change', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  const input = page.locator('#length');
+  await input.fill('6');
+  await page.fill('#number', '4');
+  await page.fill('#special', '4');
+  await slider.fill('10');
+  await expect(page.locator('#validation-msg')).toHaveText('');
+  await expect(page.locator('#btn-generate')).toBeEnabled();
+});

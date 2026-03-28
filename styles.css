@@ -206,6 +206,76 @@ h1 {
     color: var(--accent);
 }
 
+/* ── Strength indicator ────────────────────────── */
+.strength-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.strength-container.visible {
+    opacity: 1;
+}
+
+.strength-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#strength-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s, background-color 0.3s;
+    border-radius: 3px;
+}
+
+#strength-fill.weak {
+    width: 25%;
+    background: var(--error);
+}
+
+#strength-fill.fair {
+    width: 50%;
+    background: #fbbf24;
+}
+
+#strength-fill.good {
+    width: 75%;
+    background: #60a5fa;
+}
+
+#strength-fill.strong {
+    width: 100%;
+    background: var(--accent);
+}
+
+#strength-text {
+    font-size: 0.8rem;
+    min-width: 60px;
+    text-align: right;
+}
+
+#strength-text.weak {
+    color: var(--error);
+}
+
+#strength-text.fair {
+    color: #fbbf24;
+}
+
+#strength-text.good {
+    color: #60a5fa;
+}
+
+#strength-text.strong {
+    color: var(--accent);
+}
+
 /* ── Footer ────────────────────────────────────── */
 .footer {
     text-align: center;

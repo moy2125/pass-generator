@@ -191,3 +191,57 @@ test('validation triggers on slider change', async ({ page }) => {
   await expect(page.locator('#validation-msg')).toHaveText('');
   await expect(page.locator('#btn-generate')).toBeEnabled();
 });
+
+// ── Strength Indicator ────────────────────────────────────────────────────────
+
+test('strength indicator is hidden before generating password', async ({ page }) => {
+  const container = page.locator('#strength-container');
+  await expect(container).not.toHaveClass(/visible/);
+});
+
+test('strength indicator appears after generating password', async ({ page }) => {
+  await page.click('#btn-generate');
+  const container = page.locator('#strength-container');
+  await expect(container).toHaveClass(/visible/);
+});
+
+test('strength indicator shows Strong for password with high length and variety', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  await slider.fill('20');
+  await page.fill('#number', '5');
+  await page.fill('#special', '5');
+  await page.click('#btn-generate');
+  const strengthText = page.locator('#strength-text');
+  await expect(strengthText).toHaveText('Strong');
+});
+
+test('strength indicator shows Weak for short password without variety', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  await slider.fill('3');
+  await page.fill('#number', '0');
+  await page.fill('#special', '0');
+  await page.click('#btn-generate');
+  const strengthText = page.locator('#strength-text');
+  await expect(strengthText).toHaveText('Weak');
+});
+
+test('strength indicator shows Fair or higher for 8-char password with variety', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  await slider.fill('8');
+  await page.fill('#number', '2');
+  await page.fill('#special', '0');
+  await page.click('#btn-generate');
+  const strengthText = page.locator('#strength-text');
+  const text = await strengthText.textContent();
+  expect(["Fair", "Good", "Strong"]).toContain(text);
+});
+
+test('strength indicator shows Good for password with numbers', async ({ page }) => {
+  const slider = page.locator('#length-slider');
+  await slider.fill('12');
+  await page.fill('#number', '4');
+  await page.fill('#special', '0');
+  await page.click('#btn-generate');
+  const strengthText = page.locator('#strength-text');
+  await expect(strengthText).toHaveText('Good');
+});

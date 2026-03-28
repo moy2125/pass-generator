@@ -58,6 +58,52 @@ function validateInputs() {
 // This  function will be called when the "Generate Password" button is clicked
 let newPasswordGlobal = "";
 
+function updateStrength(password) {
+  const strengthContainer = document.getElementById("strength-container");
+  const strengthFill = document.getElementById("strength-fill");
+  const strengthText = document.getElementById("strength-text");
+
+  if (!password) {
+    strengthContainer.classList.remove("visible");
+    return;
+  }
+
+  strengthContainer.classList.add("visible");
+
+  const length = password.length;
+  const hasNumbers = /\d/.test(password);
+  const hasSpecials = /[!@#$%^&*()]/.test(password);
+  const hasUpper = /[A-Z]/.test(password);
+  const hasLower = /[a-z]/.test(password);
+
+  let score = 0;
+  if (length >= 8) score++;
+  if (length >= 12) score++;
+  if (length >= 16) score++;
+  if (hasNumbers) score++;
+  if (hasSpecials) score++;
+  if (hasUpper && hasLower) score++;
+
+  let level, label;
+  if (score <= 2) {
+    level = "weak";
+    label = "Weak";
+  } else if (score <= 3) {
+    level = "fair";
+    label = "Fair";
+  } else if (score <= 4) {
+    level = "good";
+    label = "Good";
+  } else {
+    level = "strong";
+    label = "Strong";
+  }
+
+  strengthFill.className = level;
+  strengthText.className = level;
+  strengthText.textContent = label;
+}
+
 function generatePassword() {
   const btn = document.getElementById("btn-generate");
   
@@ -69,6 +115,8 @@ function generatePassword() {
     document.getElementById("result").textContent = newPassword;
     document.getElementById("result-box").classList.add("has-password");
     newPasswordGlobal = newPassword;
+
+    updateStrength(newPassword);
 
     anime({
       targets: "#result",
@@ -88,6 +136,7 @@ function generatePassword() {
   } catch (error) {
     document.getElementById("result").textContent = `Error: ${error.message}`;
     document.getElementById("result-box").classList.remove("has-password");
+    updateStrength("");
   }
 }
 

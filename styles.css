@@ -194,11 +194,22 @@ h1 {
     border-color: var(--accent);
 }
 
+#result-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#result-wrapper {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
 #result {
     font-size: 1.1rem;
     color: var(--muted);
     word-break: break-all;
-    text-align: center;
     letter-spacing: 0.08em;
 }
 
@@ -210,11 +221,13 @@ h1 {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.85rem;
+    padding: 0.25rem;
     opacity: 0.5;
     transition: opacity 0.2s;
     color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .toggle-visibility:hover {
@@ -224,10 +237,6 @@ h1 {
 
 .toggle-visibility.hidden {
     display: none;
-}
-
-.visibility-icon::before {
-    content: "show";
 }
 
 #result.masked {

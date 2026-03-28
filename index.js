@@ -1,14 +1,34 @@
 const PasswordGenerator = (() => {
+  const CONFIG = {
+    chars: {
+      lowercase: "abcdefghijklmnopqrstuvwxyz",
+      uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      numbers: "0123456789",
+      specials: "!@#$%^&*()"
+    },
+    defaults: {
+      length: 6,
+      lengthMin: 3,
+      lengthMax: 30,
+      numbers: 0,
+      specials: 0
+    },
+    animation: {
+      duration: 2000
+    },
+    rateLimit: {
+      cooldownMs: 500
+    }
+  };
+
   let currentPassword = "";
 
   function generateEquilibratedPassword(length) {
-    if (length > 30 || length <= 0) {
-      throw new Error("The length should be more than 0 and less or equal to 30");
+    if (length > CONFIG.defaults.lengthMax || length <= 0) {
+      throw new Error(`Length must be between ${CONFIG.defaults.lengthMin} and ${CONFIG.defaults.lengthMax}`);
     }
 
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    const numbers = "0123456789";
-    const specials = "!@#$%^&*()";
+    const letters = CONFIG.chars.lowercase + CONFIG.chars.uppercase;
 
     const numbersQty = parseInt(document.getElementById("number").value);
     const specialsQty = parseInt(document.getElementById("special").value);
@@ -25,10 +45,10 @@ const PasswordGenerator = (() => {
       password.push(obtainRandomCharacter(letters));
     }
     for (let i = 0; i < numbersQty; i++) {
-      password.push(obtainRandomCharacter(numbers));
+      password.push(obtainRandomCharacter(CONFIG.chars.numbers));
     }
     for (let i = 0; i < specialsQty; i++) {
-      password.push(obtainRandomCharacter(specials));
+      password.push(obtainRandomCharacter(CONFIG.chars.specials));
     }
 
     for (let i = password.length - 1; i > 0; i--) {
@@ -118,7 +138,7 @@ const PasswordGenerator = (() => {
         targets: "#result",
         translateY: [-20, 0],
         opacity: [0, 1],
-        duration: 2000,
+        duration: CONFIG.animation.duration,
         easing: "easeOutElastic(1, .8)",
       });
 
@@ -128,7 +148,7 @@ const PasswordGenerator = (() => {
       setTimeout(() => {
         btn.textContent = originalText;
         btn.disabled = false;
-      }, 500);
+      }, CONFIG.rateLimit.cooldownMs);
     } catch (error) {
       document.getElementById("result").textContent = `Error: ${error.message}`;
       document.getElementById("result-box").classList.remove("has-password");
@@ -171,8 +191,8 @@ const PasswordGenerator = (() => {
 
     lengthInput.addEventListener("input", () => {
       let val = parseInt(lengthInput.value);
-      if (val < 3) val = 3;
-      if (val > 30) val = 30;
+      if (val < CONFIG.defaults.lengthMin) val = CONFIG.defaults.lengthMin;
+      if (val > CONFIG.defaults.lengthMax) val = CONFIG.defaults.lengthMax;
       lengthSlider.value = val;
       validateInputs();
     });
@@ -196,7 +216,7 @@ const PasswordGenerator = (() => {
     });
   }
 
-  return { init, generatePassword, copyPassword, generateEquilibratedPassword };
+  return { init, generatePassword, copyPassword, generateEquilibratedPassword, CONFIG };
 })();
 
 document.addEventListener("DOMContentLoaded", PasswordGenerator.init);

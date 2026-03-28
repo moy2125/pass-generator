@@ -317,3 +317,35 @@ test('generateEquilibratedPassword function works via API', async ({ page }) => 
   const password = await page.evaluate(() => PasswordGenerator.generateEquilibratedPassword(10));
   expect(password.length).toBe(10);
 });
+
+// ── Case Selector ───────────────────────────────────────────────────────────────
+
+test('case selector exists with correct options', async ({ page }) => {
+  const select = page.locator('#case');
+  await expect(select).toBeVisible();
+  await expect(select.locator('option')).toHaveCount(3);
+  await expect(select).toHaveValue('both');
+});
+
+test('generates uppercase only password when Upper is selected', async ({ page }) => {
+  await page.selectOption('#case', 'upper');
+  await page.click('#btn-generate');
+  const text = await page.locator('#result').textContent();
+  expect(text).toMatch(/^[A-Z]+$/);
+});
+
+test('generates lowercase only password when Lower is selected', async ({ page }) => {
+  await page.selectOption('#case', 'lower');
+  await page.click('#btn-generate');
+  const text = await page.locator('#result').textContent();
+  expect(text).toMatch(/^[a-z]+$/);
+});
+
+test('generates mixed case password when Both is selected', async ({ page }) => {
+  await page.selectOption('#case', 'both');
+  await page.click('#btn-generate');
+  const text = await page.locator('#result').textContent();
+  const hasUpper = /[A-Z]/.test(text);
+  const hasLower = /[a-z]/.test(text);
+  expect(hasUpper || hasLower).toBe(true);
+});

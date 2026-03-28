@@ -28,7 +28,15 @@ const PasswordGenerator = (() => {
       throw new Error(`Length must be between ${CONFIG.defaults.lengthMin} and ${CONFIG.defaults.lengthMax}`);
     }
 
-    const letters = CONFIG.chars.lowercase + CONFIG.chars.uppercase;
+    const caseType = document.getElementById("case").value;
+    let letters;
+    if (caseType === "upper") {
+      letters = CONFIG.chars.uppercase;
+    } else if (caseType === "lower") {
+      letters = CONFIG.chars.lowercase;
+    } else {
+      letters = CONFIG.chars.lowercase + CONFIG.chars.uppercase;
+    }
 
     const numbersQty = parseInt(document.getElementById("number").value);
     const specialsQty = parseInt(document.getElementById("special").value);

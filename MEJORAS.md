@@ -68,7 +68,7 @@
 ## Features
 
 ### 13. No hay opción para uppercase/lowercase only
-- **Estado**: Pendiente
+- **Estado**: ✅ Completado
 
 ### 14. No hay historial reciente
 - (opt-in, localStorage)
